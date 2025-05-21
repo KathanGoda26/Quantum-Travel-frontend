@@ -3,7 +3,6 @@ import "./booking.css";
 import { Form, FormGroup, ListGroupItem, Button } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import { BASE_URL } from "../../utils/config";
 
 const Booking = ({ tour }) => {
   const { price, reviews, avgRating, title } = tour;
@@ -36,7 +35,7 @@ const Booking = ({ tour }) => {
   }
 
   try {
-    const res = await fetch(`${BASE_URL}/booking`, {
+    const res = await fetch(`https://quantum-travel-frontend.vercel.app/api/v1/booking`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json", 
