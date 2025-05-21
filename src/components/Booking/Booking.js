@@ -30,10 +30,10 @@ const Booking = ({ tour }) => {
   const handleClick = async (e) => {
     e.preventDefault();
 
+    console.log(booking);
     try {
-      if (!user || user === undefined || user === null) {
+      if (!user || user === undefined || user === null)
         return alert("Please Sign in");
-      }
 
       const res = await fetch(`${BASE_URL}/booking`, {
         method: "POST",
@@ -48,10 +48,11 @@ const Booking = ({ tour }) => {
       if (!res.ok) {
         return alert(result.message);
       }
-      navigate("/thank-you");
     } catch (error) {
       alert(error.message);
     }
+
+    navigate("/thank-you");
   };
   
   return (
