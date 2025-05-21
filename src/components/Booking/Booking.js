@@ -28,31 +28,36 @@ const Booking = ({ tour }) => {
     Number(price) * Number(booking.guestSize) + Number(serviceFee);
 
   const handleClick = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      if (!user || user === undefined || user === null) {
-        return alert("Please Sign in");
-      }
+  if (!user) {
+    alert("Please sign in first.");
+    return;
+  }
 
-      const res = await fetch(`${BASE_URL}/booking`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(booking),
-      });
+  try {
+    const res = await fetch(`${BASE_URL}/booking`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", 
+      },
+      credentials: "include", 
+      body: JSON.stringify(booking),
+    });
 
-      const result = await res.json();
-      if (!res.ok) {
-        return alert(result.message);
-      }
-      navigate("/thank-you");
-    } catch (error) {
-      alert(error.message);
+    const result = await res.json();
+
+    if (!res.ok) {
+      alert(result?.message || "Something went wrong during booking.");
+      return;
     }
-  };
+    navigate("/thank-you");
+
+  } catch (error) {
+    console.error("Booking error:", error);
+    alert("An unexpected error occurred. Please try again.");
+  }
+};
   
   return (
     <>
